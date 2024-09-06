@@ -1,14 +1,3 @@
-name: Azure Static Web Apps CI/CD
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
-
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -23,22 +12,10 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_SALMON_ROCK_01A637310 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_SEA_03D4D5310 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "build" # Built app content directory - optional
-          environment_variables: '{"REACT_APP_WEATHER_API_KEY": "${{ secrets.REACT_APP_WEATHER_API_KEY }}"}' # Example of adding environment variables
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_SALMON_ROCK_01A637310 }}
-          action: "close"
+          environment_variables: 'REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}' # Add this line
